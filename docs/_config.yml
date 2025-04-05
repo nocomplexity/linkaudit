@@ -43,11 +43,6 @@ parse:
 
   myst_url_schemes          : [mailto, http, https]  # URI schemes that will be recognised as external URLs in Markdown links
 
-# repository:
-#   url                       : https://gitlab.com/nocomplexity/simplepub  # The URL to your book's repository
-#   path_to_book              : ""  # A path to your book's folder, relative to the repository root.
-#   branch                    : master  # Which branch of the repository should be used when creating links
-
 #######################################################################################
 # HTML-specific settings
 html:
@@ -98,7 +93,7 @@ sphinx:
     napoleon_google_docstring: true
     napoleon_numpy_docstring: true
     html_theme_options:        
-      repository_url: "https://gitlab.com/nocomplexity/simplepub"
+      repository_url: "https://github.com/nocomplexity/linkaudit"
       repository_branch: "master" 
       use_repository_button: True
       use_edit_page_button: True

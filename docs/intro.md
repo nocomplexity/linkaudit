@@ -1,7 +1,9 @@
 # Introduction
 
 
-Linkaudit is a simple CLI tool to check for broken links in `markdown` files used in[JupyterBook directories](https://jupyterbook.org/en/stable/intro.html).
+Linkaudit is a simple CLI tool to check for broken links in `markdown` in Sphinx or [JupyterBook](https://jupyterbook.org/en/stable/intro.html) documentation.  
+
+All `markdown`, `MyST`, or `rst` used in a documentation directory are checked. 
 
 This tool is created to make maintenance of broken links simpler when working with Jupyterbook or Sphinx.
 
