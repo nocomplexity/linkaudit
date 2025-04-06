@@ -53,5 +53,5 @@ Full documentation is available at [https://nocomplexity.com/documents/linkaudit
 
 ## License
 
-This tool is licensed  GPL-3.0-or-later. See [License](LICENSE.md) for details.
+This tool is licensed  GPL-3.0-or-later. 
 

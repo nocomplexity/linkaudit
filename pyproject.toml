@@ -1,30 +1,24 @@
 [build-system]
-requires = ["hatchling",
-    "versioningit"]
+requires = ["hatchling" ]
 build-backend = "hatchling.build"
 
 
 [tool.hatch.version]
-source = "versioningit"
+path = "src/linkaudit/_version.py"
 
-[tool.versioningit]
-
-[tool.versioningit.write]
-file = "src/linkaudit/_version.py"
 
 [project]
 name = "linkaudit"
 dynamic = ["version"]  # This tells Hatch that version is dynamically determined
-#version = "0.1.0" #I use verioningit now. Automatic version by using git for Python modules is simpler.
+#version = "0.3.0" #Using Hatch dynamic versioning
 readme = "README.md"
 
 
-
-dependencies = ["fire"]
+dependencies = ["fire>=0.7.0"]
 
 description = 'Checks broken URLs in markdown files.'
 
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 license = "GPL-3.0-or-later"
 keywords = []
 authors = [

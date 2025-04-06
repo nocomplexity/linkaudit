@@ -11,7 +11,6 @@ import asyncio
 
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
-import re
 import os
 import sys  # Import the sys module
 
