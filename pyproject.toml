@@ -12,20 +12,14 @@ name = "linkaudit"
 dynamic = ["version"]  # This tells Hatch that version is dynamically determined
 #version = "0.3.0" #Using Hatch dynamic versioning
 readme = "README.md"
-
-
 dependencies = ["fire>=0.7.0"]
-
-
-description = 'Checks broken URLs in markdown files.'
-
+description = "Checks broken URLs in markdown files."
 requires-python = ">=3.12"
 license = "GPL-3.0-or-later"
 keywords = []
 authors = [
   { name = "Maikel Mardjan", email = "mike@bm-support.org" },
 ]
-
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
