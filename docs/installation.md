@@ -2,13 +2,10 @@
 
 ## Installation
 
-:::{admonition} TODO
-:class: tip
-Just use pip
-
-**[NOTE]** This simple package is not YET on a public repro nor published on pypi!!
-
-:::
+Linkaudit can be installed using `pip`:
+```
+pip install linkaudit
+```
 
 
 ## Usage
