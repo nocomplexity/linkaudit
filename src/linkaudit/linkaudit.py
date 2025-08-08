@@ -19,12 +19,23 @@ from linkaudit import markdownhelpers
 from linkaudit import nocxhelpers
 from linkaudit import __version__
 
-
+	
 nocxheaders = {
-    "user-agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0"
+    "user-agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:141.0) Gecko/20100101 Firefox/141.0"
 }
 nocxtimeout = 4
 
+linkaudit_ascii_art=r"""
+-----------------------------------------------
+  _     _       _       _             _ _ _   
+ | |   (_)_ __ | | __  / \  _   _  __| (_| |_ 
+ | |   | | '_ \| |/ / / _ \| | | |/ _` | | __|
+ | |___| | | | |   < / ___ | |_| | (_| | | |_ 
+ |_____|_|_| |_|_|\_/_/   \_\__,_|\__,_|_|\__|
+ ----------------------------------------------
+"""
+
+REPORT_NAME = 'linkaudit-report.html'
 
 async def async_checkurl(url):
     """
@@ -93,7 +104,7 @@ def show_all_links(bookdirectory):
         bookdirectory (str): The path to the directory containing Markdown files to analyze.
 
     Returns:
-        None: Outputs an HTML file named "linkaudit_result.html" with the report.
+        None: Outputs an HTML file named "REPORT_NAME" with the report.
 
     """
     files_tocheck = markdownhelpers.collect_markdown_files(bookdirectory)
@@ -117,7 +128,7 @@ def show_all_links(bookdirectory):
     htmloutput += "<h2> Summary </h2><br>"
     htmloutput += f"<p>Total number of found URLs: {total_urls} </p>"
     print(f"Total number of found URLs: {total_urls}")
-    html_result.create_output_htmlfile(htmloutput, "linkaudit_result.html")
+    html_result.create_output_htmlfile(htmloutput, REPORT_NAME)
 
 
 def check_md_files(bookdirectory, result_output="H"):
@@ -128,7 +139,7 @@ def check_md_files(bookdirectory, result_output="H"):
             Overridden by user input during execution.
 
     Returns:
-        None: Outputs either "linkaudit_result.html" or "linkaudit_result.md" based on user choice.    
+        None: Outputs either "REPORT_NAME" or "linkaudit_result.md" based on user choice.    
     """
     files_tocheck = markdownhelpers.collect_markdown_files(bookdirectory)
     result_output = input("HTML output [H] (=Default) or TXT output [T]? )")
@@ -165,12 +176,12 @@ def check_md_files(bookdirectory, result_output="H"):
         with open("linkaudit_result.md", "w", encoding="utf-8") as file:
             file.write(txtoutput)
         current_directory = os.getcwd()  # gets the current directory
-        result_location = current_directory + "/" + "linkaudit_result.md"
+        result_location = current_directory + "/" + "linkaudit_report.md"
         print(f"Markdown result file written! Check file : file://{result_location}")
     else:
         htmloutput += "<h2> Summary </h2><br>"
         htmloutput += f"<p>Total number URLs detected: {total_urls} </p>"
-        html_result.create_output_htmlfile(htmloutput, "linkaudit_result.html")
+        html_result.create_output_htmlfile(htmloutput, REPORT_NAME)
 
 
 def display_version():
@@ -180,7 +191,10 @@ def display_version():
 
 def display_help():
     """Prints linkaudit help text"""
-    print("Linkaudit\n")
+    print(linkaudit_ascii_art)
+    print('LinkAudit - Superfast, simple, and deadly accurate to find broken links in markdown.\n')
+    print('Usage: linkaudit COMMAND [PATH]\n')
+    print('Commands:')
     commands = ["showlinks", "checklinks", "version"]  # commands on CLI
     functions = [
         show_all_links,
@@ -189,11 +203,11 @@ def display_help():
     ]  # Related functions relevant for help
     for command, function in zip(commands, functions):
         docstring = function.__doc__
-        summary = docstring.split("\n", 1)[0]
-        print(f"Command \t: {command}")
-        print(summary)  # Output: This is the summary of the docstring.
-        print()
+        summary = docstring.split("\n", 1)[0]        
+        print(f"  {command:<20} {summary}")   
     print("Use linkaudit [COMMAND] --help for detailed help per command.")
+    print("\nUse the Linkaudit documentation to learn more!\nCheck: https://nocomplexity.com/documents/linkaudit/intro.html\n")
+
 
 
 def main():

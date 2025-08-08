@@ -1,6 +1,6 @@
 # Link Audit
 
-LinkAudit gives information on broken links in markdown files.
+LinkAudit – Superfast, simple, and deadly accurate to find broken links in markdown.
 
 This `linkaudit` tool has the following features:
 
