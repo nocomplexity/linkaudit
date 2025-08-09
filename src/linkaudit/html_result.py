@@ -52,9 +52,8 @@ def generate_html_table(data):
     return html_table
 
 
-def create_output_htmlfile(result, filename):
-    """Creates a clean output.html file of the input given"""
-    FILENAME = filename
+def create_output_htmlfile(result, outputfile):
+    """Creates a clean output.html file of the input given"""    
     output = '<!DOCTYPE html><html lang="en-US"><head>    <meta charset="UTF-8"/><title> Standard Generated Output file </title></head>'  # html charset UTF-8!
     output += """
     <meta charset="UTF-8">
@@ -65,8 +64,20 @@ def create_output_htmlfile(result, filename):
     output += '<body class="mt-3 mx-4">'
     output += result
     output += '</body>'
-    with open(FILENAME, "w") as f:
+    with open(outputfile, "w") as f:
         f.write(output)
-    current_directory = os.getcwd()  # gets the current directory
-    result_location = current_directory + "/" + FILENAME
-    print(f"Result file written! Check file : file://{result_location}")
+    current_directory = os.getcwd()
+    # Get the directory of the output file (if any)
+    directory_for_output = os.path.dirname(os.path.abspath(outputfile))    
+    filename_only = os.path.basename(outputfile)
+    # Determine the effective directory to use in the file URL
+    if not directory_for_output or directory_for_output == current_directory:
+        file_url = f'file://{current_directory}/{filename_only}'
+    else:
+        file_url = f'file://{directory_for_output}/{filename_only}'        
+    # Print the result
+    print("\n=====================================================================")    
+    print(f'Linkaudit report file created!\nPaste the line below directly into your browser bar:\n\t{file_url}\n')
+    print("=====================================================================\n")
+
+    

@@ -97,7 +97,7 @@ def check_links_in_markdown_file(file_path):
     return combined
 
 
-def show_all_links(bookdirectory):
+def show_all_links(bookdirectory, filename=REPORT_NAME):
     """Shows all URLs from MyST Markdown files in a directory and generates an HTML report.
 
     Args:
@@ -128,7 +128,7 @@ def show_all_links(bookdirectory):
     htmloutput += "<h2> Summary </h2><br>"
     htmloutput += f"<p>Total number of found URLs: {total_urls} </p>"
     print(f"Total number of found URLs: {total_urls}")
-    html_result.create_output_htmlfile(htmloutput, REPORT_NAME)
+    html_result.create_output_htmlfile(htmloutput, filename)
 
 
 def check_md_files(bookdirectory, result_output="H"):
@@ -222,6 +222,7 @@ def main():
             {
                 "checklinks": check_md_files,
                 "showlinks": show_all_links,
+                "version": display_version,
                 "--version": display_version,
                 "-help": display_help,
             }
