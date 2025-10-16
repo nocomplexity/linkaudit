@@ -1,5 +1,6 @@
 # Introduction
 
+[![PythonCodeAudit Badge](https://img.shields.io/badge/Python%20Code%20Audit-Security%20Verified-FF0000?style=flat-square)](https://github.com/nocomplexity/codeaudit)
 
 Linkaudit is a simple CLI tool to check for broken links in `markdown` in Sphinx or [JupyterBook](https://jupyterbook.org/en/stable/intro.html) documentation.  
 

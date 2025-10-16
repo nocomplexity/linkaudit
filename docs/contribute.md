@@ -14,6 +14,11 @@ Simple Guidelines:
 * Questions, Feature Requests, Bug Reports should all be reported on the [Github Issue Tracker](tbd) .
 * [Black](https://black.readthedocs.io/en/stable/index.html) is used for code style. But for a simple fix, using `Black` is not required!
 
+Test scripts require installation of:
+* `pytest` and
+* `pytest-asyncio` to run the `asyncio` tests.
+
+
 
 :::{warning}
 This simple tool is meant to keep simple. 

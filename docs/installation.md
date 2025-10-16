@@ -4,7 +4,7 @@
 
 Linkaudit can be installed using `pip`:
 ```
-pip install linkaudit
+pip install -U linkaudit
 ```
 
 

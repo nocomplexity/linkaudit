@@ -9,16 +9,15 @@ Send an email or submit an github issue if you see a vulnerability that **SHOULD
 
 I advocate for better and [simple security](simplifysecurity.nocomplexity.com), so this tool is reviewed to identify potential vulnerabilities.
 
-Result of scan with [Bandit](https://bandit.readthedocs.io/):
+Result of scan with [Pytyon Code Audit](https://nocomplexity.com/codeaudit/):
 ```
-blacklist: Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.
-Test ID: B310
-Severity: MEDIUM
-Confidence: HIGH
+result_output = input("HTML output [H] (=Default) or TXT output [T]? )")
 ```
-For details on `B310` see this [page in the Bandit manual](https://bandit.readthedocs.io/en/1.8.3/blacklists/blacklist_calls.html#b310-urllib-urlopen).
 
+Inspecting the code on Input Validation and Sanitization learns that Input Values are restricted.
+Of course, also no `exec` or `eval` is done on given user input.
 
+URL processing **Should** always be done carefully, since using `urlopen` can lead to parsing errors.
 Checking the status of an URL requires using a construct like:
 ```python
 request = Request(url, headers=nocxheaders)
@@ -26,8 +25,9 @@ request = Request(url, headers=nocxheaders)
 	                return url, response.status
 ```
 
-Mitigation to your judgement:
+Mitigation to our judgement:
 * Content of URLs is not processed.
 * Only the DNS or HTTP status of an URL is verified.
-* Use of external libraries, like `requests` or `aiohttp` is deliberately avoided.
+* Use of more vulnerable external libraries, like `requests` or `aiohttp` are deliberately avoided.
+
 

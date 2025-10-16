@@ -1,5 +1,11 @@
 # Link Audit
 
+[![PythonCodeAudit Badge](https://img.shields.io/badge/Python%20Code%20Audit-Security%20Verified-FF0000?style=flat-square)](https://github.com/nocomplexity/codeaudit)
+
+[![PyPI - Version](https://img.shields.io/pypi/v/linkaudit.svg)](https://pypi.org/project/linkaudit)
+[![Documentation](https://img.shields.io/badge/Link%20Audit%20Handbook-Available-blue)](https://nocomplexity.com/documents/linkaudit)
+[![License](https://img.shields.io/badge/License-GPLv3-FFD700)](https://github.com/nocomplexity/linkaudit/blob/main/LICENSE.md)
+
 LinkAudit – Superfast, simple, and deadly accurate to find broken links in markdown.
 
 This `linkaudit` tool has the following features:
