@@ -1,7 +1,7 @@
 """
 License GPL3
 
-(C) 2024-2025 Created by Maikel Mardjan - https://nocomplexity.com/
+(C) 2024-2026 Created by Maikel Mardjan - https://nocomplexity.com/
 
 Simple Link checker for JupyterBook markdown files. Simplifies maintenance for dead URLs in JupyterBook projects.
 """
@@ -21,7 +21,7 @@ from linkaudit import __version__
 
 	
 nocxheaders = {
-    "user-agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0" }
+    "user-agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:147.0) Gecko/20100101 Firefox/147.0" }
 nocxtimeout = 4
 
 linkaudit_ascii_art=r"""
@@ -97,15 +97,27 @@ def check_links_in_markdown_file(file_path):
 
 
 def show_all_links(bookdirectory, filename=REPORT_NAME):
-    """Shows all URLs from MyST Markdown files in a directory and generates an HTML report.
+    """Extracts and reports all URLs found in MyST Markdown files.
+
+    Scans all MyST Markdown files in the specified directory, extracts URLs
+    from each file, and generates an HTML report summarizing the results.
+    A progress bar is displayed during processing, and a summary of the
+    total number of URLs found is printed to stdout.
 
     Args:
-        bookdirectory (str): The path to the directory containing Markdown files to analyze.
+        bookdirectory (str): Path to the directory containing MyST Markdown
+            files to be scanned.
+        filename (str, optional): Name of the output HTML report file.
+            Defaults to REPORT_NAME.
 
     Returns:
-        None: Outputs an HTML file named "REPORT_NAME" with the report.
+        None
 
-    """
+    Side Effects:
+        - Writes an HTML report file containing all discovered URLs.
+        - Prints a progress bar while processing files.
+        - Prints the total number of URLs found to stdout.
+    """    
     files_tocheck = markdownhelpers.collect_markdown_files(bookdirectory)
     htmloutput = (
         "<h1> Overview of URLs  - Link Audit for markdown files (URL checker) </h1><br>"
@@ -129,16 +141,31 @@ def show_all_links(bookdirectory, filename=REPORT_NAME):
     print(f"Total number of found URLs: {total_urls}")
     html_result.create_output_htmlfile(htmloutput, filename)
 
-
 def check_md_files(bookdirectory, result_output="H"):
-    """Print txt tables of URLs checks of JB Book
+    """Checks Markdown files for broken URLs and generates a report.
+
+    Scans all Markdown files in the specified directory, checks embedded URLs,
+    and reports only links with issues (non-200 HTTP status codes). During
+    execution, the user is prompted to choose the output format (HTML or
+    Markdown). Progress is displayed via a progress bar, and a summary of the
+    total number of URLs checked is included in the final report.
+
     Args:
-        bookdirectory (str): The path to the directory containing Markdown files to analyze.
-        result_output (str, optional): Output format, "H" for HTML (default) or "T" for TXT.
-            Overridden by user input during execution.
+        bookdirectory (str): Path to the directory containing Markdown files
+            to be scanned.
+        result_output (str, optional): Default output format hint. Use "H" for
+            HTML or "T" for Markdown text. Note that this value is overridden
+            by interactive user input at runtime.
 
     Returns:
-        None: Outputs either "REPORT_NAME" or "linkaudit_result.md" based on user choice.    
+        None
+
+    Side Effects:
+        - Prompts the user for output format selection.
+        - Writes an HTML report file (REPORT_NAME) or a Markdown report file
+          (``linkaudit_result.md``).
+        - Displays a progress bar during processing.
+        - Prints status and summary information to stdout.
     """
     files_tocheck = markdownhelpers.collect_markdown_files(bookdirectory)
     result_output = input("HTML output [H] (=Default) or TXT output [T]? )")
@@ -184,7 +211,15 @@ def check_md_files(bookdirectory, result_output="H"):
 
 
 def display_version():
-    """Prints the module version. Use [-v] [--v] [-version] or [--version]."""
+    """Displays the current application version.
+
+    Prints the application version string to standard output. This function
+    is intended for use as a CLI command and can be invoked via common version
+    flags such as ``-v``, ``--v``, ``-version``, or ``--version``.
+
+    Returns:
+        None
+    """
     print(f"version: {__version__}")
 
 
@@ -210,9 +245,13 @@ def display_help():
 
 
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] in ("-v", "--v", "--version", "-version"):
+    if "-?" in sys.argv:      # Normalize help flags BEFORE Fire sees them: fire module treats anything starting with - as a flag/value, not as a help alias.
+        sys.argv[sys.argv.index("-?")] = "--help"
+    if "-help" in sys.argv:      # Normalize help flags BEFORE Fire sees them
+        sys.argv[sys.argv.index("-help")] = "--help"        
+    elif len(sys.argv) > 1 and sys.argv[1] in ("-v", "--v", "--version", "-version"):
         display_version()
-    elif len(sys.argv) > 1 and sys.argv[1] in ("-help", "-?", "--help", "-h"):
+    elif len(sys.argv) > 1 and sys.argv[1] in ("-help", "--help", "-h"):
         display_help()
     elif len(sys.argv) == 1:
         display_help()

@@ -7,7 +7,7 @@
 #title                       : Link Audit Documentation # The title of the book. Will be placed in the left navbar.
 title : ""
 author                      : '<a href="https://nocomplexity.com/">Maikel Mardjan (nocomplexity.com)</a>' # The author of the book
-copyright                   : '2025- Maikel Mardjan - Business Management Support Foundation'  # Copyright year to be placed in the footer
+copyright                   : '2026- Maikel Mardjan - Business Management Support Foundation'  # Copyright year to be placed in the footer
 logo                        : "images/nocxbanner.png"  # A path to the book logo
 # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
 exclude_patterns            : [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
@@ -86,7 +86,7 @@ sphinx:
   - sphinx.ext.todo
 
   local_extensions          :   # A list of local extensions to load by sphinx specified by "name: path" items  
-     linkaudit :  '/home/maikel/projects/pythondev/linkaudit/src/linkaudit'
+  
   config:
     html_show_copyright: false
     html_last_updated_fmt: ""     
