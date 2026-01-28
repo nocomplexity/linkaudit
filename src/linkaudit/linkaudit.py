@@ -141,73 +141,75 @@ def show_all_links(bookdirectory, filename=REPORT_NAME):
     print(f"Total number of found URLs: {total_urls}")
     html_result.create_output_htmlfile(htmloutput, filename)
 
-def check_md_files(bookdirectory, result_output="H"):
+def check_md_files(bookdirectory, html=True):
     """Checks Markdown files for broken URLs and generates a report.
 
     Scans all Markdown files in the specified directory, checks embedded URLs,
-    and reports only links with issues (non-200 HTTP status codes). During
-    execution, the user is prompted to choose the output format (HTML or
-    Markdown). Progress is displayed via a progress bar, and a summary of the
-    total number of URLs checked is included in the final report.
+    and reports only links with issues (non-200 HTTP status codes).
 
     Args:
-        bookdirectory (str): Path to the directory containing Markdown files
-            to be scanned.
-        result_output (str, optional): Default output format hint. Use "H" for
-            HTML or "T" for Markdown text. Note that this value is overridden
-            by interactive user input at runtime.
+        bookdirectory (str): Path to the directory containing Markdown files.
+        html (bool, optional): Generate HTML output (default: True).
+                               Use --no-html for TXT/Markdown output.
 
-    Returns:
-        None
-
-    Side Effects:
-        - Prompts the user for output format selection.
-        - Writes an HTML report file (REPORT_NAME) or a Markdown report file
-          (``linkaudit_result.md``).
-        - Displays a progress bar during processing.
-        - Prints status and summary information to stdout.
+    CLI examples:
+        linkaudit checklinks docs/
+        linkaudit checklinks docs/ --html
+        linkaudit checklinks docs/ --no-html
     """
+
     files_tocheck = markdownhelpers.collect_markdown_files(bookdirectory)
-    result_output = input("HTML output [H] (=Default) or TXT output [T]? )")
-    txtoutput = "# Result of Link Audit for markdown files (URL checker) \n\n"
+
+    txtoutput = "# Result of Link Audit for markdown files (URL checker)\n\n"
     htmloutput = "<h1> Result of Link Audit for markdown files (URL checker) </h1><br>"
-    htmloutput += "<p><i> Note: </i> Only URLs with issues are reported! Broken links are reported per file. </p><br>"
+    htmloutput += (
+        "<p><i> Note: </i> Only URLs with issues are reported! "
+        "Broken links are reported per file. </p><br>"
+    )
+
     l = len(files_tocheck)
     nocxhelpers.printProgressBar(0, l, prefix="Progress:", suffix="Complete", length=50)
+
     total_urls = 0
+
     for index, md_file in enumerate(files_tocheck):
         result = check_links_in_markdown_file(md_file)
         total_urls += len(result)
-        # Filter out entries with status 200 - So only report files with broken links.
+
+        # Only report broken links (status != 200)
         filtered_result = [entry for entry in result if entry["status"] != 200]
+
+        nocxhelpers.printProgressBar(
+            index + 1, l, prefix="Progress:", suffix="Complete", length=50
+        )
+
         if filtered_result:
-            if result_output == "T":
-                nocxhelpers.printProgressBar(
-                    index + 1, l, prefix="Progress:", suffix="Complete", length=50
-                )
+            if not html:
                 table = markdownhelpers.create_markdown_table(filtered_result)
-                txtoutput += f"## Result: {md_file} \n\n"
-                txtoutput += table
-                txtoutput += "\n\n"
+                txtoutput += f"## Result: {md_file}\n\n"
+                txtoutput += table + "\n\n"
             else:
-                nocxhelpers.printProgressBar(
-                    index + 1, l, prefix="Progress:", suffix="Complete", length=50
-                )
                 htmloutput += f"<h3>Result: {md_file}</h3><br>"
                 htmloutput += html_result.generate_html_table(filtered_result)
                 htmloutput += "<br><br>"
-    if result_output == "T":
-        txtoutput += "## Summary \n\n"
-        txtoutput += f"Total number of found URLs: {total_urls} \n\n"
-        with open("linkaudit_result.md", "w", encoding="utf-8") as file:
+
+    if not html:
+        txtoutput += "## Summary\n\n"
+        txtoutput += f"Total number of found URLs: {total_urls}\n\n"
+
+        output_file = "linkaudit_result.md"
+        with open(output_file, "w", encoding="utf-8") as file:
             file.write(txtoutput)
-        current_directory = os.getcwd()  # gets the current directory
-        result_location = current_directory + "/" + "linkaudit_report.md"
-        print(f"Markdown result file written! Check file : file://{result_location}")
+
+        print(
+            f"Markdown result file written! "
+            f"Check file: file://{os.getcwd()}/{output_file}"
+        )
     else:
         htmloutput += "<h2> Summary </h2><br>"
-        htmloutput += f"<p>Total number URLs detected: {total_urls} </p>"
+        htmloutput += f"<p>Total number URLs detected: {total_urls}</p>"
         html_result.create_output_htmlfile(htmloutput, REPORT_NAME)
+
 
 
 def display_version():

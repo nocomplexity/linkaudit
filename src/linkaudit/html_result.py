@@ -9,7 +9,6 @@ Function to create a HTML result file of a linkaudit run
 
 import os
 
-
 def generate_html_table(data):
     """
     Generates an HTML table for entries with status != 200.
@@ -20,11 +19,10 @@ def generate_html_table(data):
     Returns:
         str: A string containing the HTML table.
     """
-    # Start the HTML table
     html_table = """
     <table class="table table-striped table-bordered table-hover">    
         <thead>
-            <tr >
+            <tr>
                 <th>Line Number</th>
                 <th>URL</th>
                 <th>Status Code</th>
@@ -33,18 +31,21 @@ def generate_html_table(data):
         <tbody>
     """
 
-    # Add rows for entries with status != 200
     for entry in data:
         if entry["status"] != 200:
+            url = entry["url"]
             html_table += f"""
             <tr>
                 <td>{entry['line_number']}</td>
-                <td>{entry['url']}</td>
+                <td>
+                    <a href="{url}" target="_blank" rel="noopener noreferrer">
+                        {url}
+                    </a>
+                </td>
                 <td>{entry['status']}</td>
             </tr>
             """
 
-    # Close the table
     html_table += """
         </tbody>
     </table>
