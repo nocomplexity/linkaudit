@@ -1,7 +1,6 @@
 # Features
 
-This `linkaudit` tool has the following features:
-* Shows all *external* links (aka URLs) for a Shpinx or JupyterBook. Output is saved.
-* Validate status of all discoverd *external* links for a Sphinx or Jupyterbook document. Output is saved.
+The `linkaudit` tool offers the following features:
 
-
+* Displays all *external* links (i.e., URLs) found in a Sphinx or JupyterBook project. The output is saved automatically.
+* Validates the status of all discovered *external* links in a Sphinx or JupyterBook document. The output is saved automatically.

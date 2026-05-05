@@ -13,6 +13,7 @@ import os
 def extract_urls_from_markdown(markdown_text):
     """
     Extracts all URLs from a Markdown or MyST Markdown file, including multiple URLs in a single line.
+    It will detected external URLs! so no internal refers in e.g. MyST (for now!)
 
     Parameters:
         markdown_text (str): The content of the Markdown file.
@@ -20,7 +21,7 @@ def extract_urls_from_markdown(markdown_text):
     Returns:
         list: A list of extracted URLs.
     """
-    # Regular expression to match multiple URL patterns
+    # Regular expression to match multiple URL patterns -
     url_pattern = re.compile(
         r"\[.*?\]\((https?://[^\s)\"]+|[^)\s\"]+)(?:\s+\"[^\"]*\")?\)"  # Markdown links with titles or without
         r'|(?<!\()(?<!\[)(https?://[^\s)<"]+)'  # Bare URLs (not inside markdown links), avoid ending quotes
