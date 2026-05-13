@@ -213,7 +213,7 @@ def check_md_files(bookdirectory, html=True):
 
 
 def display_version():
-    """Displays the current application version.
+    """Displays the current application version. Or use linkaudit [-v] [--v] [-version] or [--version].
 
     Prints the application version string to standard output. This function
     is intended for use as a CLI command and can be invoked via common version

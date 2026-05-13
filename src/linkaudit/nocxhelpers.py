@@ -1,7 +1,7 @@
 """
 License GPL3
 
-(C) 2024-2025 Created by Maikel Mardjan - https://nocomplexity.com/
+(C) 2024-2026 Created by Maikel Mardjan - https://nocomplexity.com/
 
 Generic helper function(s). 
 """
