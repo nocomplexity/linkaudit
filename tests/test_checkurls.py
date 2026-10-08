@@ -9,7 +9,7 @@ async def test_url_status_client_error():
     expected_results = [
         ("https://nocomplexity.com ", 200),
         ("https://nocomplexity.com/smurfen ", 'HTTP Error: 404 Not Found'),
-        ("https://smurf.nocomplexity.com", 'HTTP Error: 500 Internal Server Error'),
+        ("https://smurf.nocomplexity.com", 'URL Error: [Errno -2] Name or service not known'),
         ("https://bm-support.org", 200),
         ("https://www.organisatieontwerp.nl", 200) # Added a real url
     ]
